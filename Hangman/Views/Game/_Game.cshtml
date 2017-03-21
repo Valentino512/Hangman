@@ -1,0 +1,67 @@
+﻿@model Hangman.Models.GameViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    function qtip() {
+        $('a[title]').qtip();
+    };
+</script>
+
+<div>
+    @if (Model != null)
+    {
+        <div style="font-size:small">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.NumberOfTryGuessLetter):
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.NumberOfTryGuessLetter)
+                </dd>
+            </dl>
+        </div>
+    }
+</div>
+
+<div>
+    <table>
+        <tr>
+            <td>
+                @Html.Label(Model.Word.WordForGame, new { @class = "label", @Style = "font-family:Algerian;font-size:x-large;color:blue" })
+                <a title="@Model.Word.Description" onmouseover="qtip()">
+                    <label style="font-family:Algerian;font-size:x-large;color:blue" class="label label-default">HINT</label>
+                </a>
+            </td>
+            <td>
+                <img width="300" height="200" src="@Model.ImagePath" />
+            </td>
+            <td>
+                @if (!String.IsNullOrEmpty(Model.WrongLetters))
+                {
+                    if (Model.WrongLetters.Length >= 5)
+                    {
+                        @Html.Label("Думата е " + Model.Word.WordText, new { @Class = "label label-default", @Style = "font-size:x-large" })
+                        <hr />
+                    }
+
+                    @Html.Label(Model.WrongLetters, new { @Class = "label label-default", @Style = "font-size:x-large" });
+                }
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <hr />
+                @Html.Label("Категория: " + Model.Word.Category, new { @class = "label label-default", @style = "font-size:x-large" })
+                <hr />
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="form-group">
+     @Html.Partial("_GamePost", Model)
+</div>

@@ -1,0 +1,165 @@
+﻿@model Hangman.Models.MultiplayerGameModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "MultiplayerGame";
+    if (Model.HostPlayer.WrongLetters == null)
+    {
+        Model.HostPlayer.WrongLetters = "";
+    }
+
+    Model.HostPlayer.UserInput = "э";
+
+    if (Model.RivalPlayer != null)
+    {
+        if (Model.RivalPlayer.WrongLetters == null)
+        {
+            Model.RivalPlayer.WrongLetters = "";
+        }
+        if (Model.RivalPlayer.UserInput == null)
+        {
+            Model.RivalPlayer.UserInput = "э";
+        }
+    }
+}
+
+<script type="text/javascript">
+    function qtip() {
+        $('a[title]').qtip();
+    };
+</script>
+
+<br />
+<div id="multiplayer">
+    <div>
+        <div class="form-horizontal">
+            @Html.Label("Играч 1:", new { @class = "label label-default" })
+            @Html.DisplayFor(m => m.HostPlayer.UserName, new { @class = "label label-default" })
+            <br />
+            @Html.DisplayNameFor(m => m.HostPlayer.Points):
+            @Html.DisplayFor(m => m.HostPlayer.Points)
+        </div>
+        <hr />
+        <div class="form-horizontal">
+            @if (Model.RivalPlayer != null)
+            {
+                @Html.Label("Играч 2:", new { @class = "label label-default" })
+                @Html.DisplayFor(m => m.RivalPlayer.UserName, new { @class = "label label-default" })
+                <br />
+                <div>
+                    @Html.DisplayNameFor(m => m.RivalPlayer.Points):
+                    @Html.DisplayFor(m => m.RivalPlayer.Points)
+                </div>
+            }
+        </div>
+    </div>
+
+    <div>
+        <table>
+            <tr>
+                @if (Model.HostPlayer.UserName == User.Identity.Name)
+                {
+                    <td>
+                        @Html.Label(Model.HostPlayer.Word.WordForGame, new { @Class = "label", @Style = "font-family:Algerian;font-size:x-large;color:blue" })
+                        <br />
+                        <br />
+                        <br />
+                        <div>
+                            <a title="@Model.HostPlayer.Word.Description" onmouseover="qtip()">
+                                <label style="font-family:Algerian;font-size:x-large;color:blue" class="label label-default">HINT</label>
+                            </a>
+                        </div>
+                        <br />
+                        <div class="label label-default">
+                            @Html.DisplayNameFor(m => m.RivalPlayer.WrongLetters)
+                            @Html.DisplayFor(m => m.RivalPlayer.WrongLetters)
+                        </div>
+                    </td>
+                    <td>
+                        @Html.Label("Играч 1:", new { @Class = "label label-default" })
+                        <img width="300" height="200" src="@Model.HostPlayer.ImagePath" />
+                    </td>
+                    <td>
+                        @if (Model.RivalPlayer != null)
+                        {
+                            if (Model.RivalPlayer.ImagePath != null)
+                            {
+                                @Html.Label("Играч 2:", new { @Class = "label label-default" })
+                                <img width="300" height="200" src="@Model.RivalPlayer.ImagePath" />
+                            }
+                        }
+                        else
+                        {
+                            @Html.Label("Играч 2:", new { @Class = "label label-default" })
+                            <img width="300" height="200" src="@Model.HostPlayer.ImagePath" />
+                        }
+                    </td>
+                    if (!String.IsNullOrEmpty(Model.HostPlayer.WrongLetters))
+                    {
+                        <td>
+                            @if (Model.HostPlayer.WrongLetters.Length >= 5)
+                            {
+                                @Html.Label("Думата е " + Model.HostPlayer.Word.WordText, new { @Class = "label label-default", @Style = "font-size:x-large" })
+                                <hr />
+                            }
+                        </td>
+                    }
+                }
+                @if (Model.RivalPlayer != null)
+                {
+                    if (Model.RivalPlayer.UserName == User.Identity.Name)
+                    {
+                        <td>
+                            @Html.Label(Model.RivalPlayer.Word.WordForGame, new { @Class = "label", @Style = "font-family:Algerian;font-size:x-large;color:blue" })
+                            <br />
+                            <br />
+                            <br />
+                            <div>
+                                <a title="@Model.RivalPlayer.Word.Description" onmouseover="qtip()">
+                                    <label style="font-family:Algerian;font-size:x-large;color:blue" class="label label-default">HINT</label>
+                                </a>
+                            </div>
+                            <br />
+                            <div class="label label-default">
+                                @Html.DisplayNameFor(m => m.RivalPlayer.WrongLetters)
+                                @Html.DisplayFor(m => m.RivalPlayer.WrongLetters)
+                            </div>
+                        </td>
+                        <td>
+                            @Html.Label("Играч 1:", new { @Class = "label label-default" })
+                            <img width="300" height="200" src="@Model.HostPlayer.ImagePath" />
+                        </td>
+                        <td>
+                            @if (Model.HostPlayer != null)
+                            {
+                                if (Model.HostPlayer.ImagePath != null)
+                                {
+                                    @Html.Label("Играч 2:", new { @Class = "label label-default" })
+                                    <img width="300" height="200" src="@Model.RivalPlayer.ImagePath" />
+                                }
+                            }
+                        </td>
+                        <td>
+                            @if (Model.RivalPlayer.WrongLetters.Length >= 5)
+                            {
+                                @Html.Label("Думата е " + Model.RivalPlayer.Word.WordText, new { @Class = "label label-default", @Style = "font-size:x-large" })
+                                <hr />
+                            }
+                        </td>
+                    }
+                }
+            </tr>
+            <tr>
+                <td>
+                    <hr />
+                    @Html.Label("Категория: " + Model.HostPlayer.Word.Category, new { @class = "label label-default", @style = "font-size:x-large" })
+                    <hr />
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        @Html.Partial("_MultiplayerGameForm", Model)
+    </div>
+</div>

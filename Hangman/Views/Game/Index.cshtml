@@ -1,0 +1,15 @@
+﻿@model Hangman.Models.GameViewModel
+
+@{
+    ViewBag.Title = "Hangman";
+}
+
+<div style="align-content:center">
+    <div id="gamePartialView">
+        @Html.Partial("_Game", Model)
+    </div>
+</div>
+<hr />
+<footer>
+    <p>&copy; @DateTime.Now.Year - Hangman</p>
+</footer>

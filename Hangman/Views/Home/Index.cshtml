@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Hangman";
+}
+
+<div class="jumbotron" style="background-color:darkred">
+    <h1 style="color:yellow;font-family:Algerian">Hangman</h1>
+    <p class="lead" style="color:whitesmoke">Бесеница е името на популярната в цял свят игра за познаване на думи. Целта ви е да отгатнете скритата дума, чиито букви са отбелязани с чертички.</p>
+</div>
+
+<table>
+    <tr>
+        <td width="80%">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="form-inline" style="font-family:Algerian">
+                    <h2 style="font-family:Algerian">Статистика до момента:</h2>
+                    <div>
+                        @{Html.RenderAction("Statistics");}
+                    </div>
+                </div>
+                            }
+        </td>
+        <td>
+            <div class="col-md-4">
+                @Html.ActionLink("Start Game", "Index", "Game", null, new { @class = "btn btn-primary" })
+            </div>
+        </td>
+    </tr>
+</table>
+
+<hr />
+<footer>
+    <p>&copy; @DateTime.Now.Year - Hangman</p>
+</footer>

@@ -1,0 +1,16 @@
+﻿@model List<Hangman.Models.ApplicationUser>
+
+
+@{
+    ViewBag.Title = "Join Multiplayer Game";
+}
+
+<h2>Списък с хост игри:</h2>
+<br />
+<hr />
+
+@foreach(var hostGame in Model)
+{
+    @Html.ActionLink("Присъедини се към " + hostGame.UserName,"_MultiplayerGame","Multiplayer", new { userName = hostGame.UserName }, new { @class="btn btn-primary" })
+    <hr />
+}

@@ -1,0 +1,88 @@
+﻿@model Hangman.Models.MultiplayerGameModel
+
+@using (Ajax.BeginForm("MultiplayerGameForm", "Multiplayer", new AjaxOptions
+{
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "multiplayer"
+}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div>
+        @if (Model.HostPlayer != null)
+        {
+            @Html.HiddenFor(model => model.HostPlayer.Word.Id)
+            @Html.HiddenFor(model => model.HostPlayer.Word.Category)
+            @Html.HiddenFor(model => model.HostPlayer.Word.Description)
+            @Html.HiddenFor(model => model.HostPlayer.Word.WordForGame)
+            @Html.HiddenFor(model => model.HostPlayer.Word.WordText)
+            @Html.HiddenFor(model => model.HostPlayer.WrongLetters)
+            @Html.HiddenFor(model => model.HostPlayer.UserName)
+            @Html.HiddenFor(model => model.HostPlayer.ImagePath)
+            @Html.HiddenFor(model => model.HostPlayer.NumberOfTryGuessLetter)
+            @Html.HiddenFor(model => model.HostPlayer.Points)
+        }
+        @if (Model.RivalPlayer != null)
+        {
+            @Html.HiddenFor(model => model.RivalPlayer.Word.Id)
+            @Html.HiddenFor(model => model.RivalPlayer.Word.WordForGame)
+            @Html.HiddenFor(model => model.RivalPlayer.Word.Category)
+            @Html.HiddenFor(model => model.RivalPlayer.Word.Description)
+            @Html.HiddenFor(model => model.RivalPlayer.Word.WordText)
+            @Html.HiddenFor(model => model.RivalPlayer.UserName)
+            @Html.HiddenFor(model => model.RivalPlayer.Points)
+            @Html.HiddenFor(model => model.RivalPlayer.WrongLetters)
+            @Html.HiddenFor(model => model.RivalPlayer.NumberOfTryGuessLetter)
+            @Html.HiddenFor(model => model.RivalPlayer.ImagePath)
+        }
+        <table>
+            <tr>
+                @if (Model.HostPlayer.UserName == User.Identity.Name && (Model.HostPlayer.Word.WordForGame != null))
+                {
+                    if (Model.HostPlayer.Word.WordForGame.Contains('_') && Model.HostPlayer.WrongLetters.Length < 5)
+                    {
+                        <td>
+                            @ViewBag.Message
+                            @Html.TextBoxFor(m => m.HostPlayer.UserInput, new { @Value = "" })
+                            @Html.ValidationMessageFor(m => m.HostPlayer.UserInput, "", new { @class = "text-danger" })
+                            @if (Model.RivalPlayer != null)
+                            {
+                                @Html.HiddenFor(m => m.RivalPlayer.UserInput)
+                            }
+                        </td>
+                            <td>
+                                <input type="submit" value="Пробвай" class="btn btn-default" />
+                            </td>
+                    }
+                }
+                @if (Model.RivalPlayer != null)
+                {
+                    if (Model.RivalPlayer.UserName == User.Identity.Name && (Model.RivalPlayer.Word.WordForGame != null))
+                    {
+                        if (Model.RivalPlayer.Word.WordForGame.Contains('_') && Model.RivalPlayer.WrongLetters.Length < 5)
+                        {
+                            <td>
+                                @ViewBag.Message
+                                @Html.TextBoxFor(m => m.RivalPlayer.UserInput, new { @Value = "" })
+                                @Html.ValidationMessageFor(m => m.RivalPlayer.UserInput, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(m => m.HostPlayer.UserInput)
+                            </td>
+                            <td>
+                                <input type="submit" value="Пробвай" class="btn btn-default" />
+                            </td>
+                        }
+                    }
+                    if (!Model.HostPlayer.Word.WordForGame.Contains('_') || Model.HostPlayer.WrongLetters.Length >= 5 || !Model.RivalPlayer.Word.WordForGame.Contains('_') || Model.RivalPlayer.WrongLetters.Length >= 5)
+                    {
+                        <td>
+                            <div>
+                                @Html.ActionLink("Нова игра?", "Index", null, new { @class = "btn btn-default" })
+                            </div>
+                        </td>
+                    }
+                }
+            </tr>
+        </table>
+    </div>
+}

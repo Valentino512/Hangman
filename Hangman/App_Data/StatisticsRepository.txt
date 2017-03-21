@@ -1,0 +1,1 @@
+[{"UserName":"Email2@mail.com","PlayedGames":61,"WinGames":56,"LossGames":10,"NumberOfTryGuessLetter":172,"NumberOfWholeWordGuessed":52},{"UserName":"Email@mail.com","PlayedGames":58,"WinGames":53,"LossGames":10,"NumberOfTryGuessLetter":168,"NumberOfWholeWordGuessed":49}]

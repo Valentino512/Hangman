@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Multiplayer Game";
+}
+
+<br />
+<br />
+<hr />
+<div>
+    <table class="col-lg-9">
+        <tr>
+            <td width="30%">
+            </td>
+            <td>
+                @Html.ActionLink("Направи игра", "Host", "Multiplayer", new { @class = "btn btn-primary" })
+            </td>
+            <td>
+                @Html.ActionLink("Присъедини се към игра", "Join", "Multiplayer", new { @class = "btn btn-primary" })
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+<br />
+<hr />

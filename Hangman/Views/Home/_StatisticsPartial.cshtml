@@ -1,0 +1,63 @@
+﻿@model Hangman.Models.StatisticModels
+
+@if (Model != null)
+{
+    <div>
+        <hr />
+        <table class="dl-horizontal">
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.UserName):
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.UserName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.PlayedGames):
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PlayedGames)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.WinGames):
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.WinGames)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.LossGames):
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.LossGames)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.NumberOfTryGuessLetter):
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.NumberOfTryGuessLetter)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.NumberOfWholeWordGuessed):
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => model.NumberOfWholeWordGuessed)
+                </td>
+            </tr>
+        </table>
+        <hr />
+    </div>
+}
